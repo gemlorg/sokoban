@@ -1,22 +1,28 @@
 module Main where
 
 import CodeWorld
+import Shapes 
+import CodeWorld (rectangle)
+import GHC.Float (int2Double)
+import Data.Foldable (Foldable(foldl'))
+
 
 main :: IO ()
 -- module Data.Angle where
+main = drawingOf pictureOfMaze
 
-main = animationOf design
+pictureOfMaze :: Picture
 
-design (t) = polyline ([cords (theta) | theta <- [0, 0.1 .. speed * t]])
+pictureOfMaze =   composePic [translated (int2Double x) (int2Double y) $ drawTile $ maze (toInteger x) (toInteger y) | x <- [-10..10], y <- [-10..10]]
 
-speed = 100
+composePic :: [Picture] -> Picture
+composePic = foldl' (&) (rectangle 0 0)
 
-w = 2 / pi * log (golden_ratio)
-
-golden_ratio = (1 + sqrt (5)) / 2
-
-scal = 1 / 100
-
-cords (theta) = (radius (theta) * cos (theta), radius (theta) * sin (theta))
-
-radius (theta) = exp (w * scal * theta)
+maze :: Integer -> Integer -> Integer
+maze x y
+  | abs x > 4  || abs y > 4  = 0  -- blank
+  | abs x == 4 || abs y == 4 = 1  -- wall
+  | x ==  2 && y <= 0        = 1  -- wall
+  | x ==  3 && y <= 0        = 3  -- storage
+  | x >= -2 && y == 0        = 4  -- box
+  | otherwise                = 2  -- ground
