@@ -1,28 +1,49 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Main where
 
-import CodeWorld
-import Shapes 
-import CodeWorld (rectangle)
-import GHC.Float (int2Double)
-import Data.Foldable (Foldable(foldl'))
+import           CodeWorld
+import           Data.Foldable (Foldable (foldl'))
+import           GHC.Float     (int2Double)
+import           Player
+import           Shapes
+import           Types
+import           Utils
 
+
+
+type Program = IO ()
 
 main :: IO ()
 -- module Data.Angle where
-main = drawingOf pictureOfMaze
 
-pictureOfMaze :: Picture
+-- main = activityOf initial handleEvent drawState where initial = initLevel blank
+-- main = drawingOf player1
+main = walk1
 
-pictureOfMaze =   composePic [translated (int2Double x) (int2Double y) $ drawTile $ maze (toInteger x) (toInteger y) | x <- [-10..10], y <- [-10..10]]
+walk1 :: IO ()
+walk1 = activityOf initial handle draw
+  where
+    initial = initLevel blank
+    handle = handleEvent
+    draw = drawWalk1
 
-composePic :: [Picture] -> Picture
-composePic = foldl' (&) (rectangle 0 0)
+walk2 :: IO ()
+walk2 = activityOf initial handle draw
+  where
+    initial = initLevel blank
+    handle = handleEvent
+    draw = drawWalk2
 
-maze :: Integer -> Integer -> Integer
-maze x y
-  | abs x > 4  || abs y > 4  = 0  -- blank
-  | abs x == 4 || abs y == 4 = 1  -- wall
-  | x ==  2 && y <= 0        = 1  -- wall
-  | x ==  3 && y <= 0        = 3  -- storage
-  | x >= -2 && y == 0        = 4  -- box
-  | otherwise                = 2  -- ground
+walk3 :: IO ()
+walk3 = resettableActivityOf initial handle draw
+  where
+    initial = initLevel blank
+    handle = handleEvent
+    draw = drawWalk2
+
+
+
+
+initLevel:: Picture -> State
+initLevel pic = S {stPlayer = C 0 (-1), stDir = U}
+

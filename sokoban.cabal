@@ -31,7 +31,10 @@ executable sokoban
       -threaded
 
     -- Modules included in this executable, other than Main.
-    other-modules:  Shapes
+    other-modules:  Shapes,
+                    Types,
+                    Utils,
+                    Player
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:

@@ -1,13 +1,18 @@
-module Shapes(wall,ground, storage, box, drawTile ) where
+module Shapes( wall,ground, storage, box, drawTile, Tile(Wall, Ground, Storage, Box, Blank)) where
 
-import CodeWorld
-import Prelude
+import           CodeWorld
+import           Data.Foldable (Foldable (foldl'))
+import           Prelude
+import           Types
 
 
 wall, ground, storage, box:: Picture
 hLine:: Double -> Picture
 -- wallShade, wallLight::Picture
-drawTile :: Integer -> Picture 
+drawTile :: Tile -> Picture
+-- player1 :: Picture
+
+
 
 
 wall =  wallShade & wallLight & vSep 0 2 & vSep 1 1 & vSep 2 2 & colored  wallColor ( solidRectangle 1 1)
@@ -15,13 +20,13 @@ box = woodCords (-0.5, 0.3) (0.5, 0.5) & woodCords (-0.5, -0.5) (0.5, -0.3) & co
 ground = colored groundColor $ solidRectangle 1 1
 storage = star & ground
 
-drawTile n
-    | n == 0    = blank
-    | n == 1    = wall
-    | n == 2    = ground
-    | n == 3    = storage 
-    | n == 4    = box
-    | otherwise = error "Invalid tile number"  -- Handle invalid tile numbers here
+
+drawTile Wall    = wall
+drawTile Ground  = ground
+drawTile Storage = storage
+drawTile Box     = box
+drawTile Blank   = blank
+
 
 star = colored starColor $ solidCircle starSize
 
@@ -30,7 +35,7 @@ star = colored starColor $ solidCircle starSize
 
 
 composePic :: [Picture] -> Picture
-composePic = foldr (&) (blank)
+composePic = foldl' (&) (blank)
 
 woodCords (x1, x2) (y1, y2) = translated x1 x2 $ translated (y1/2 - x1/2) (y2/2 - x2/2) $ woodenPlate ( y1-x1) (y2-x2)
 woodenPlate a b = colored woodShadeColor (thickPolyline lineThickness [(-a/2,-b/2 + lineThickness / 2), (a/2,-b/2 + lineThickness / 2)] & thickPolyline lineThickness [(a/2 - lineThickness / 2, b/2), (a/2 - lineThickness/2,-b/2)]) & colored woodColor $ solidRectangle a b
