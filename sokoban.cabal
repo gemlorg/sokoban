@@ -34,7 +34,8 @@ executable sokoban
     other-modules:  Shapes,
                     Types,
                     Utils,
-                    Player
+                    Player,
+                    Levels
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:

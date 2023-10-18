@@ -1,4 +1,5 @@
-module Shapes( wall,ground, storage, box, drawTile, Tile(Wall, Ground, Storage, Box, Blank)) where
+{-# LANGUAGE OverloadedStrings #-}
+module Shapes( wall,ground, storage, box, drawTile, startScreen, endScreen, Tile(Wall, Ground, Storage, Box, Blank)) where
 
 import           CodeWorld
 import           Data.Foldable (Foldable (foldl'))
@@ -10,8 +11,10 @@ wall, ground, storage, box:: Picture
 hLine:: Double -> Picture
 -- wallShade, wallLight::Picture
 drawTile :: Tile -> Picture
--- player1 :: Picture
-
+startScreen :: Picture
+startScreen = scaled 3 3 (lettering "Sokoban!")
+endScreen :: Picture
+endScreen = scaled 3 3 (lettering "You won!")
 
 
 
