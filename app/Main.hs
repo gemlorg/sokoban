@@ -1,6 +1,7 @@
-{-# LANGUAGE OverloadedStrings #-}
+-- {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wno-missing-fields #-}
 module Main where
+import Data.Char
 
 import           CodeWorld
 import           Data.Foldable (Foldable (foldl'))

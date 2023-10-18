@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE OverloadedRecordDot #-}
+-- {-# LANGUAGE OverloadedRecordDot #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Redundant bracket" #-}
 
@@ -60,20 +60,20 @@ move:: Direction -> State -> State
 --     else s)
 
 move dir s
-    | canMove dir s = rotatePlayer dir $ movePlayer dir $ moveBox (adjacentCoord dir s.stPlayer) dir s
+    | canMove dir s = rotatePlayer dir $ movePlayer dir $ moveBox (adjacentCoord dir (stPlayer s)) dir s
 --     | isFree adjacentCoord dir s.stPlayer = movePlayer $ rotatePlayer dir s
 --     | isAvailable $ adjacentCoord dir s.stPlayer = moveBox $ movePlayer $ rotatePlayer dir s
 move dir s = rotatePlayer dir  s
 
-moveBox c dir s  = s{stBoxes = [if c == x then adjacentCoord dir x else x | x <- s.stBoxes]}
-movePlayer dir s = s{stPlayer = adjacentCoord dir s.stPlayer}
+moveBox c dir s  = s{stBoxes = [if c == x then adjacentCoord dir x else x | x <- (stBoxes s)]}
+movePlayer dir s = s{stPlayer = adjacentCoord dir (stPlayer s)}
 
 isFree :: State -> Coord -> Bool
 isFree s c = eq ((mapWBoxes s) c)  Storage || eq ((mapWBoxes s) c)  Ground -- the LSP highlights == as a mistake so had to use  different syntax
 
 
 canMove :: Direction -> State  -> Bool
-canMove  dir s  = isFree s (adjacentCoord dir s.stPlayer) || (mapWBoxes s) (adjacentCoord dir s.stPlayer) == Box && isFree s (adjacentCoord dir $ adjacentCoord dir s.stPlayer)
+canMove  dir s  = isFree s (adjacentCoord dir (stPlayer s)) || (mapWBoxes s) (adjacentCoord dir (stPlayer s)) == Box && isFree s (adjacentCoord dir $ adjacentCoord dir (stPlayer s))
 
 
 
@@ -115,7 +115,7 @@ moveCoords (x:xs) y = moveCoords xs (adjacentCoord x y)
 
 
 draw :: State -> Picture
-draw s = if isWinning s then endScreen else player2 s.stDir & atCoord (negateCoord s.stPlayer) (pictureOfMaze  (mapWBoxes s))
+draw s = if isWinning s then endScreen else player2 (stDir s) & atCoord (negateCoord (stPlayer s)) (pictureOfMaze  (mapWBoxes s))
 
 
 
@@ -132,10 +132,10 @@ pictureOfMaze maze =    composePic [translated (int2Double x) (int2Double y) $ d
 
 
 mapWBoxes :: State -> Maze
-mapWBoxes s=  addBoxes (stBoxes s) $ removeBoxes $ s.stMap
+mapWBoxes s=  addBoxes (stBoxes s) $ removeBoxes $ stMap s
 
 isWinning :: State -> Bool
-isWinning s = and [s.stMap x == Storage | x <- s.stBoxes]
+isWinning s = and [(stMap s) x == Storage | x <- (stBoxes s)]
 
 
 -- drawState :: State-> Picture
