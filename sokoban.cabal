@@ -35,12 +35,15 @@ executable sokoban
                     Types,
                     Utils,
                     Player,
-                    Levels
+                    Levels,
+                    ListFs
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
     build-depends:    
         base >=4.15.1,
-        codeworld-api ^>= 0.8.1
+        codeworld-api ^>= 0.8.1,
+        text >= 1.2 
+        
     hs-source-dirs:   app
     default-language: Haskell2010

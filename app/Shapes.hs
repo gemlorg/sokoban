@@ -4,7 +4,11 @@ module Shapes( wall,ground, storage, box, drawTile, startScreen, endScreen, Tile
 import           CodeWorld
 import           Data.Foldable (Foldable (foldl'))
 import           Prelude
+import Data.Text (Text, pack)              -- Import the Text type
+
+import Data.String 
 import           Types
+import Data.Text.Internal.StrictBuilder (toText)
 
 
 wall, ground, storage, box:: Picture
@@ -13,8 +17,10 @@ hLine:: Double -> Picture
 drawTile :: Tile -> Picture
 startScreen :: Picture
 startScreen = scaled 3 3 (lettering "Sokoban!")
-endScreen :: Picture
-endScreen = scaled 3 3 (lettering "You won!")
+
+
+endScreen :: State ->Picture
+endScreen s = translated 0 (2) (lettering $ pack $ "Level " ++  (show $ stLevel s + 1 ) ++ " finished with " ++ (show $ stMove s) ++ " moves") & translated 0 (0) (lettering "Press space to continue")
 
 
 

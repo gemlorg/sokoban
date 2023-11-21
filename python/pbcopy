@@ -1,0 +1,147 @@
+maze_1 = Maze (C 2 3) mazeF_1
+
+mazeF_1 (C x y)
+    | y == 0 && x >= 0 && x <= 3 = Wall
+    | y == 1 && x >= 0 && x <= 0 = Wall
+    | y == 1 && x >= 1 && x <= 1 = Ground
+    | y == 1 && x >= 2 && x <= 2 = Storage
+    | y == 1 && x >= 3 && x <= 3 = Wall
+    | y == 2 && x >= 0 && x <= 0 = Wall
+    | y == 2 && x >= 1 && x <= 2 = Ground
+    | y == 2 && x >= 3 && x <= 5 = Wall
+    | y == 3 && x >= 0 && x <= 0 = Wall
+    | y == 3 && x >= 1 && x <= 1 = Ground
+    | y == 3 && x >= 2 && x <= 2 = Ground
+    | y == 3 && x >= 3 && x <= 4 = Ground
+    | y == 3 && x >= 5 && x <= 5 = Wall
+    | y == 4 && x >= 0 && x <= 0 = Wall
+    | y == 4 && x >= 1 && x <= 2 = Ground
+    | y == 4 && x >= 3 && x <= 3 = Box
+    | y == 4 && x >= 4 && x <= 4 = Ground
+    | y == 4 && x >= 5 && x <= 5 = Wall
+    | y == 5 && x >= 0 && x <= 0 = Wall
+    | y == 5 && x >= 1 && x <= 2 = Ground
+    | y == 5 && x >= 3 && x <= 5 = Wall
+    | y == 6 && x >= 0 && x <= 3 = Wall
+    | otherwise = blank
+
+maze_2 = Maze (C 3 2) mazeF_2
+
+mazeF_2 (C x y)
+    | y == 0 && x >= 0 && x <= 5 = Wall
+    | y == 1 && x >= 0 && x <= 0 = Wall
+    | y == 1 && x >= 1 && x <= 4 = Ground
+    | y == 1 && x >= 5 && x <= 5 = Wall
+    | y == 2 && x >= 0 && x <= 0 = Wall
+    | y == 2 && x >= 1 && x <= 1 = Ground
+    | y == 2 && x >= 2 && x <= 2 = Wall
+    | y == 2 && x >= 3 && x <= 3 = Ground
+    | y == 2 && x >= 4 && x <= 4 = Ground
+    | y == 2 && x >= 5 && x <= 5 = Wall
+    | y == 3 && x >= 0 && x <= 0 = Wall
+    | y == 3 && x >= 1 && x <= 1 = Ground
+    | y == 3 && x >= 2 && x <= 2 = Box
+    | y == 3 && x >= 3 && x <= 3 = Ground
+    | y == 3 && x >= 4 && x <= 4 = Ground
+    | y == 3 && x >= 5 && x <= 5 = Wall
+    | y == 4 && x >= 0 && x <= 0 = Wall
+    | y == 4 && x >= 1 && x <= 1 = Ground
+    | y == 4 && x >= 2 && x <= 2 = Storage
+    | y == 4 && x >= 3 && x <= 3 = Ground
+    | y == 4 && x >= 4 && x <= 4 = Ground
+    | y == 4 && x >= 5 && x <= 5 = Wall
+    | y == 5 && x >= 0 && x <= 0 = Wall
+    | y == 5 && x >= 1 && x <= 4 = Ground
+    | y == 5 && x >= 5 && x <= 5 = Wall
+    | y == 6 && x >= 0 && x <= 5 = Wall
+    | otherwise = blank
+
+maze_3 = Maze (C 6 4) mazeF_3
+
+mazeF_3 (C x y)
+    | y == 0 && x >= 0 && x <= 3 = Wall
+    | y == 1 && x >= 0 && x <= 2 = Wall
+    | y == 1 && x >= 3 && x <= 4 = Ground
+    | y == 1 && x >= 5 && x <= 8 = Wall
+    | y == 2 && x >= 0 && x <= 0 = Wall
+    | y == 2 && x >= 1 && x <= 5 = Ground
+    | y == 2 && x >= 6 && x <= 6 = Box
+    | y == 2 && x >= 7 && x <= 7 = Ground
+    | y == 2 && x >= 8 && x <= 8 = Wall
+    | y == 3 && x >= 0 && x <= 0 = Wall
+    | y == 3 && x >= 1 && x <= 1 = Ground
+    | y == 3 && x >= 2 && x <= 2 = Wall
+    | y == 3 && x >= 3 && x <= 4 = Ground
+    | y == 3 && x >= 5 && x <= 5 = Wall
+    | y == 3 && x >= 6 && x <= 6 = Box
+    | y == 3 && x >= 7 && x <= 7 = Ground
+    | y == 3 && x >= 8 && x <= 8 = Wall
+    | y == 4 && x >= 0 && x <= 0 = Wall
+    | y == 4 && x >= 1 && x <= 1 = Ground
+    | y == 4 && x >= 2 && x <= 2 = Storage
+    | y == 4 && x >= 3 && x <= 3 = Ground
+    | y == 4 && x >= 4 && x <= 4 = Storage
+    | y == 4 && x >= 5 && x <= 5 = Wall
+    | y == 4 && x >= 6 && x <= 6 = Ground
+    | y == 4 && x >= 7 && x <= 7 = Ground
+    | y == 4 && x >= 8 && x <= 8 = Wall
+    | y == 5 && x >= 0 && x <= 8 = Wall
+    | otherwise = blank
+
+maze_4 = Maze (C 6 2) mazeF_4
+
+mazeF_4 (C x y)
+    | y == 0 && x >= 0 && x <= 7 = Wall
+    | y == 1 && x >= 0 && x <= 0 = Wall
+    | y == 1 && x >= 1 && x <= 6 = Ground
+    | y == 1 && x >= 7 && x <= 7 = Wall
+    | y == 2 && x >= 0 && x <= 0 = Wall
+    | y == 2 && x >= 1 && x <= 1 = Ground
+    | y == 2 && x >= 2 && x <= 2 = Storage
+    | y == 2 && x >= 3 && x <= 4 = Ground
+    | y == 2 && x >= 5 && x <= 5 = Box
+    | y == 2 && x >= 6 && x <= 6 = Ground
+    | y == 2 && x >= 7 && x <= 7 = Wall
+    | y == 3 && x >= 0 && x <= 0 = Wall
+    | y == 3 && x >= 1 && x <= 6 = Ground
+    | y == 3 && x >= 7 && x <= 7 = Wall
+    | y == 4 && x >= 0 && x <= 4 = Wall
+    | y == 4 && x >= 5 && x <= 6 = Ground
+    | y == 4 && x >= 7 && x <= 7 = Wall
+    | y == 5 && x >= 0 && x <= 3 = Wall
+    | otherwise = blank
+
+maze_5 = Maze (C 4 3) mazeF_5
+
+mazeF_5 (C x y)
+    | y == 0 && x >= 0 && x <= 6 = Wall
+    | y == 1 && x >= 0 && x <= 0 = Wall
+    | y == 1 && x >= 1 && x <= 5 = Ground
+    | y == 1 && x >= 6 && x <= 6 = Wall
+    | y == 2 && x >= 0 && x <= 0 = Wall
+    | y == 2 && x >= 1 && x <= 1 = Ground
+    | y == 2 && x >= 2 && x <= 2 = Storage
+    | y == 2 && x >= 3 && x <= 3 = Box
+    | y == 2 && x >= 4 && x <= 4 = Storage
+    | y == 2 && x >= 5 && x <= 5 = Ground
+    | y == 2 && x >= 6 && x <= 6 = Wall
+    | y == 3 && x >= 0 && x <= 1 = Wall
+    | y == 3 && x >= 2 && x <= 2 = Ground
+    | y == 3 && x >= 3 && x <= 3 = Box
+    | y == 3 && x >= 4 && x <= 4 = Ground
+    | y == 3 && x >= 5 && x <= 5 = Box
+    | y == 3 && x >= 6 && x <= 6 = Ground
+    | y == 3 && x >= 7 && x <= 7 = Wall
+    | y == 4 && x >= 0 && x <= 0 = Wall
+    | y == 4 && x >= 1 && x <= 2 = Ground
+    | y == 4 && x >= 3 && x <= 3 = Storage
+    | y == 4 && x >= 4 && x <= 4 = Box
+    | y == 4 && x >= 5 && x <= 5 = Storage
+    | y == 4 && x >= 6 && x <= 6 = Ground
+    | y == 4 && x >= 7 && x <= 7 = Wall
+    | y == 5 && x >= 0 && x <= 0 = Wall
+    | y == 5 && x >= 1 && x <= 6 = Ground
+    | y == 5 && x >= 7 && x <= 7 = Wall
+    | y == 6 && x >= 0 && x <= 7 = Wall
+    | otherwise = blank
+
