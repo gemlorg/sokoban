@@ -8,7 +8,7 @@ import Data.Text (Text, pack)              -- Import the Text type
 
 import Data.String 
 import           Types
-import Data.Text.Internal.StrictBuilder (toText)
+
 
 
 wall, ground, storage, box:: Picture
