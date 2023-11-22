@@ -72,10 +72,10 @@ runActivity (Activity state0 handle draw) = activityOf state0 handle draw
 
 handleEvent :: Event -> State -> State
 handleEvent (KeyPress key) s
-    | key == "Right" || key == "d" = move R s
-    | key == "Up"    || key == "w" = move U s
-    | key == "Left"  || key == "a" = move L s
-    | key == "Down"  || key == "s" = move D s
+    | key == "\ESC[C"|| key == "d" = move R s
+    | key == "\ESC[A"|| key == "w" = move U s
+    | key == "\ESC[D"|| key == "a" = move L s
+    | key == "\ESC[B"|| key == "s" = move D s
     | key == "N"     || key == "n" || (key == " " && isWinning s) = nextLevel s
 handleEvent _ s      = s
 

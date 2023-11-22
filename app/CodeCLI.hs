@@ -4,8 +4,9 @@ import           System.Console.ANSI
 import           System.IO
 import           Types
 
-doesQuit :: Char -> Bool
-doesQuit 'q' = True
+doesQuit :: String -> Bool
+doesQuit "q"  = True
+doesQuit "Ctrl-c" = True
 doesQuit _   = False
 
 promptLine :: String -> IO String
@@ -37,20 +38,34 @@ blankDraw _ _ = ' '
 printPic :: Picture -> IO ()
 printPic pic  =  mapM_ putStrLn [[(pic  blankDraw) x (-y) | x <- [-20..20]] | y <- [-5..5]]
 
+getKey :: IO [Char]
+getKey = reverse <$> getKey' ""
+  where getKey' chars = do
+          char <- getChar
+          more <- hReady stdin
+          (if more then getKey' else return) (char:chars)
+
 activityOf :: world -> (Event -> world -> world) -> (world -> Picture) -> IO ()
 activityOf state0 handle draw = do
     hSetBuffering stdin NoBuffering
+    hSetBuffering stdout NoBuffering
     putStr "\ESCc"
     hideCursor
     printPic (draw state0)
-    input <- getChar
-    let state' = handle (KeyPress [input]) state0
-    if doesQuit input
+    input <- getKey
+    
+    let state' = handle (KeyPress input) state0
+
+    if doesQuit  input
      then do 
         showCursor
         return ()
-     else
-        activityOf state' handle draw
+     else 
+        -- putStr "\ESCc"
+        -- printPic (draw state0)
+        activityOf state' handle draw 
+
+
 
 
 
