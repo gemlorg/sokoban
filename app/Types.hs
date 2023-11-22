@@ -1,6 +1,5 @@
 
 module Types where
-import CodeWorld
  
 type MazeMap = Coord -> Tile 
 
@@ -35,12 +34,29 @@ data State = S {
   levels   :: [Maze]
 } deriving Eq
 
-data Activity world = Activity {
-  actState  :: world,
-  actHandle :: (Event -> world -> world),
-  actDraw   ::(world -> Picture)
-  }
+-- data Activity world = Activity {
+--   actState  :: world,
+--   actHandle :: (Event -> world -> world),
+--   actDraw   ::(world -> Picture)
+--   }
 
 data SSState world = StartScreen | Running world
 
 data WithUndo a = WithUndo a [a]
+
+data Event = KeyPress String
+
+data Activity world = Activity
+    world
+    (Event -> world -> world)
+    (world -> Picture)
+    
+
+type Screen = String
+
+type DrawFun = Integer -> Integer -> Char
+type Picture = DrawFun -> DrawFun
+-- blank :: Picture -> Picture
+blank :: a -> a
+blank = id
+(&) = (.)

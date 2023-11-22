@@ -1,19 +1,20 @@
 {-# LANGUAGE OverloadedStrings #-}
 -- {-# LANGUAGE OverloadedRecordDot #-}
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+-- {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
 
 module Utils where
 
 import Types
 import Player
-import CodeWorld
+
 import GHC.Float (int2Double)
 import Data.Foldable (Foldable(foldl'))
 import Shapes
 import Levels
 import qualified Types
 import ListFs
+import CodeCLI
 
 
 
@@ -45,7 +46,7 @@ etap4 m = pictureOfBools (map (\x -> isClosed x && isSane x) m)
 withUndo :: Eq a => Activity a -> Activity (WithUndo a)
 withUndo (Activity state0 handle draw) = Activity state0' handle' draw' where
 
-    handle' (KeyPress key) (WithUndo s stack) | key == "U"
+    handle' (KeyPress key) (WithUndo s stack) | key == "U" || key == "u"
       = case stack of s':stack' -> WithUndo s' stack'
                       []        -> WithUndo s []
     handle' e              (WithUndo s stack)
@@ -151,6 +152,7 @@ moveCoords (x:xs) y = moveCoords xs (adjacentCoord x y)
 
 
 draw :: State -> Picture
+-- draw s = if isWinning s then endScreen s else  (pictureOfMaze  (mapWBoxes s))
 draw s = if isWinning s then endScreen s else player2 (stDir s) & atCoord (negateCoord (stPlayer s)) (pictureOfMaze  (mapWBoxes s))
 
 
@@ -164,7 +166,7 @@ composePic = foldl' (&) blank
 
 
 pictureOfMaze :: MazeMap -> Picture
-pictureOfMaze maze =    composePic [translated (int2Double x) (int2Double y) $ drawTile $ maze (C x y) | x <- [-20..20], y <- [-20..20]]
+pictureOfMaze maze =    composePic [translated (toInteger x) (toInteger y) $ drawTile $ maze (C x y) | x <- [-20..20], y <- [-20..20]]
 
 
 mapWBoxes :: State -> MazeMap
@@ -185,7 +187,7 @@ checkCoord m c = f m c /= Blank
 
 
 pictureOfBools :: [Bool] -> Picture
-pictureOfBools xs = translated (-fromIntegral k / 2) (fromIntegral k) (go 0 xs)
+pictureOfBools xs = translated ((-fromIntegral (k `div` 2)) ) (fromIntegral k) (go 0 xs)
   where n = length xs
         k = findK 0 -- k is the integer square of n
         findK i | i * i >= n = i
@@ -197,8 +199,8 @@ pictureOfBools xs = translated (-fromIntegral k / 2) (fromIntegral k) (go 0 xs)
                      (pictureOfBool b)
           & go (i+1) bs
 
-        pictureOfBool True =  colored green (solidCircle 0.4)
-        pictureOfBool False = colored red   (solidCircle 0.4)
+        pictureOfBool True =  lettering 'T'
+        pictureOfBool False = lettering 'F'
 
 
 

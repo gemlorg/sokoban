@@ -1,7 +1,7 @@
 module Levels where
 
 import Types
-import CodeWorld
+
 
 -- maze_1 :: Maze
 -- maze_1 = Maze (C 0 (-1)) mazeF_1

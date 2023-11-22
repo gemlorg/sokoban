@@ -3,7 +3,6 @@
 module Main where
 import Data.Char
 
-import           CodeWorld
 import           Data.Foldable (Foldable (foldl'))
 import           GHC.Float     (int2Double)
 import           Player
@@ -12,6 +11,7 @@ import           Types
 import           Utils
 import           Levels
 import ListFs ( reachableFrom)
+
 
 
 
