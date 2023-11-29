@@ -3,6 +3,8 @@ module CodeCLI where
 import           System.Console.ANSI
 import           System.IO
 import           Types
+-- import Data.List 
+-- import Data.List.Split
 
 doesQuit :: String -> Bool
 doesQuit "q"  = True
@@ -24,6 +26,17 @@ lettering :: Char -> Picture
 lettering s f x y
     | x == 0 && y == 0 = s
     | otherwise = f x y
+    
+letteringAt :: Integer -> Integer -> Char -> Picture
+letteringAt a b s f x y
+    | x == a && y == b = s
+    | otherwise = f x y
+
+
+
+addSpace :: [Char] -> [Char]
+addSpace (x:xs) = [x] ++ " " ++ addSpace xs
+addSpace [] = []
 
 translated :: Integer -> Integer -> Picture -> Picture
 translated x y pic f a b = pic (translatedAll (-x) (-y) f ) (a - x) (b - y)
@@ -36,7 +49,7 @@ blankDraw :: DrawFun
 blankDraw _ _ = ' '
 
 printPic :: Picture -> IO ()
-printPic pic  =  mapM_ putStrLn [[(pic  blankDraw) x (-y) | x <- [-20..20]] | y <- [-5..5]]
+printPic pic  =  mapM_ putStrLn [ [(pic  blankDraw) x (-y) | x <- [-20..20]] | y <- [-5..5]]
 
 getKey :: IO [Char]
 getKey = reverse <$> getKey' ""
@@ -51,6 +64,7 @@ activityOf state0 handle draw = do
     hSetBuffering stdout NoBuffering
     putStr "\ESCc"
     hideCursor
+    setSGR [SetConsoleIntensity BoldIntensity]
     printPic (draw state0)
     input <- getKey
     

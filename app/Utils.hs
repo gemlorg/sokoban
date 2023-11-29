@@ -153,6 +153,7 @@ moveCoords (x:xs) y = moveCoords xs (adjacentCoord x y)
 
 draw :: State -> Picture
 -- draw s = if isWinning s then endScreen s else  (pictureOfMaze  (mapWBoxes s))
+-- draw s = if isWinning s then endScreen s else atCoord (negateCoord (stPlayer s)) $ player2 (stDir s) 
 draw s = if isWinning s then endScreen s else player2 (stDir s) & atCoord (negateCoord (stPlayer s)) (pictureOfMaze  (mapWBoxes s))
 
 
@@ -166,7 +167,8 @@ composePic = foldl' (&) blank
 
 
 pictureOfMaze :: MazeMap -> Picture
-pictureOfMaze maze =    composePic [translated (toInteger x) (toInteger y) $ drawTile $ maze (C x y) | x <- [-20..20], y <- [-20..20]]
+pictureOfMaze maze =    composePic [ drawT (toInteger x) (toInteger y) $ maze (C x y) | x <- [-20..20], y <- [-20..20]]
+-- pictureOfMaze maze =    composePic [translated (toInteger x) (toInteger y) $ drawTile $ maze (C x y) | x <- [-20..20], y <- [-20..20]]
 
 
 mapWBoxes :: State -> MazeMap

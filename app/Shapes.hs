@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Shapes( wall,ground, storage, box, drawTile, startScreen, endScreen, Tile(Wall, Ground, Storage, Box, Blank)) where
+module Shapes( wall,ground, storage, box, drawTile, drawT, startScreen, endScreen, Tile(Wall, Ground, Storage, Box, Blank)) where
 
 
 import           Data.Foldable (Foldable (foldl'))
@@ -31,6 +31,13 @@ box = lettering '$'
 ground = lettering ' '
 storage = lettering '.'
 
+-- dtawT :: Integer -> Integer -> Tile -> Picture
+drawT :: Integer -> Integer -> Tile -> Picture
+drawT x y Wall = letteringAt x y '#'
+drawT x y Ground = letteringAt x y ' '
+drawT x y Storage = letteringAt x y '.'
+drawT x y Box = letteringAt x y '$'
+drawT x y Blank = letteringAt x y ' '
 
 drawTile Wall    = wall
 drawTile Ground  = ground
