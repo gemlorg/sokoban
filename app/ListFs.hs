@@ -4,13 +4,12 @@ import Data.Foldable
 
 
 elemList :: Eq a => a -> [a] -> Bool
-
--- elemList a = foldr (\x -> a == x ) False 
 elemList _ [] = False
 elemList e (x:xs) = (x == e) || elemList e xs
 
 appendList :: [a] -> [a] -> [a]
-appendList a b = a ++ b -- not clear how it should be implemented so just use standard lib
+appendList [] a = a
+appendList (x:xs) a = appendList xs (x:a)
 
 listLength :: [a] -> Integer
 listLength = foldr (\ x -> (+) 1) 0
@@ -27,7 +26,10 @@ mapList :: (a -> b) -> [a] -> [b]
 mapList f l = [f x | x <- l]
 
 andList :: [Bool] -> Bool
-andList = and
+andList [] = True 
+andList (x:xs) 
+      |not x = False
+      |otherwise = andList xs
 
 allList :: (a-> Bool) -> [a] -> Bool
 allList f l = andList $ mapList f l
