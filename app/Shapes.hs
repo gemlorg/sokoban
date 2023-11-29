@@ -22,7 +22,7 @@ startScreen = blank
 
 
 endScreen :: State ->Picture
-endScreen s = (stringLettering $ "Level " ++  (show $ stLevel s + 1 ) ++ " finished with " ++ (show $ stMove s) ++ " moves") & translated 0 (-2) (stringLettering "Press space key to continue")
+endScreen s = (stringLettering $ "Level " ++  (show $ stLevel s + 1 ) ++ " finished with " ++ (show $ stMove s) ++ " moves") & translated 0 (-2) (stringLettering "Click space key to continue")
 -- endScreen s = lettering 'E'
 
 

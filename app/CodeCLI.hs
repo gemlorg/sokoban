@@ -3,6 +3,7 @@ module CodeCLI where
 import           System.Console.ANSI
 import           System.IO
 import           Types
+
 -- import Data.List 
 -- import Data.List.Split
 
@@ -48,8 +49,16 @@ translatedAll x y f a b = f (a - x) (b - y)
 blankDraw :: DrawFun
 blankDraw _ _ = ' '
 
+colorStr :: [Char] -> IO ()
+colorStr s 
+    | s == "P" = do setSGR [SetColor Foreground Vivid Red];putStr s;setSGR [SetColor Foreground Vivid White]
+    | s == "$" = do setSGR [SetColor Foreground Vivid Yellow];putStr s;setSGR [SetColor Foreground Vivid White]
+    | s == "." = do setSGR [SetColor Foreground Vivid Blue];putStr s;setSGR [SetColor Foreground Vivid White]
+    |otherwise = putStr s
+
 printPic :: Picture -> IO ()
-printPic pic  =  mapM_ putStrLn [ [(pic  blankDraw) x (-y) | x <- [-20..20]] | y <- [-5..5]]
+-- printPic pic  =  mapM_ putStr [ [(pic  blankDraw) x (-y) | x <- [-20..20]] ++ ['\n'] | y <- [-5..5]]
+printPic pic  =  mapM_ (\x -> do colorStr x) [ if x  == 21 then ['\n'] else [(pic  blankDraw) x (-y)]| y <- [-5..5],x <- [-20..21] ]
 
 getKey :: IO [Char]
 getKey = reverse <$> getKey' ""
@@ -62,6 +71,7 @@ activityOf :: world -> (Event -> world -> world) -> (world -> Picture) -> IO ()
 activityOf state0 handle draw = do
     hSetBuffering stdin NoBuffering
     hSetBuffering stdout NoBuffering
+    
     putStr "\ESCc"
     hideCursor
     setSGR [SetConsoleIntensity BoldIntensity]
