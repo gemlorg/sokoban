@@ -43,7 +43,6 @@ executable sokoban
     -- other-extensions:
     build-depends:    
         base >=4.15.1,
-        codeworld-api ^>= 0.8.1,
         text >= 1.2,
         ansi-terminal >= 1
         

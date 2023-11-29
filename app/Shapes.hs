@@ -10,7 +10,8 @@ import Data.String
 import           Types
 
 
-import CodeCLI 
+import CodeCLI
+    ( lettering, letteringAt, stringLettering, translated ) 
 
 
 wall, ground, storage, box:: Picture
@@ -21,7 +22,7 @@ startScreen :: Picture
 startScreen = blank
 
 
-endScreen :: State ->Picture
+endScreen :: State ->Picture 
 endScreen s = (stringLettering $ "Level " ++  (show $ stLevel s + 1 ) ++ " finished with " ++ (show $ stMove s) ++ " moves") & translated 0 (-2) (stringLettering "Click space key to continue")
 -- endScreen s = lettering 'E'
 
