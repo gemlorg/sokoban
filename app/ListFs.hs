@@ -8,8 +8,8 @@ elemList _ [] = False
 elemList e (x:xs) = (x == e) || elemList e xs
 
 appendList :: [a] -> [a] -> [a]
-appendList a [] = a
-appendList a (x:xs) = x: appendList a xs
+appendList [] a = a
+appendList (x:xs) a = x: appendList xs a
 
 listLength :: [a] -> Integer
 listLength = foldr (\ x -> (+) 1) 0
