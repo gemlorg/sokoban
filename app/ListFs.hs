@@ -27,9 +27,7 @@ mapList f l = [f x | x <- l]
 
 andList :: [Bool] -> Bool
 andList [] = True 
-andList (x:xs) 
-      |not x = False
-      |otherwise = andList xs
+andList (x:xs) = x && andList xs
 
 allList :: (a-> Bool) -> [a] -> Bool
 allList f l = andList $ mapList f l
