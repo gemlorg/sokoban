@@ -3,7 +3,6 @@
 module Main where
 import Data.Char
 
-import           CodeWorld
 import           Data.Foldable (Foldable (foldl'))
 import           GHC.Float     (int2Double)
 import           Player
@@ -13,6 +12,7 @@ import           Utils
 import           Levels
 import ListFs ( reachableFrom)
 
+import           System.IO
 
 
 type Program = IO ()
@@ -21,13 +21,14 @@ main :: IO ()
 
 main = etap5
 
--- check if sane or closed
--- main = drawingOf(pictureOfBools (map isSane badMazes))
--- main = drawingOf(pictureOfBools (map isClosed badMazes))
+-- main = do 
+--     hSetBuffering stdin NoBuffering
+--     hSetBuffering stdout NoBuffering
+--     contents <- getContents
+--     putStr "\ESCc"
+--     putStr contents
 
 
--- m = maze_155
--- main = mapM_ print (reachableFrom (initialPos m) (neighbours m ) [])
 
 
 etap5 :: IO()
