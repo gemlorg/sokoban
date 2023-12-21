@@ -25,7 +25,7 @@ extra-source-files:
 
 executable sokoban
     main-is:          Main.hs
-    other-modules:    Skeleton
+    other-modules:    Supply
     ghc-options:
       -threaded
 

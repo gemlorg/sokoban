@@ -1,5 +1,6 @@
 module Main where
-import Skeleton
+import Supply
+import Test.QuickCheck
 
 
 main :: IO ()
